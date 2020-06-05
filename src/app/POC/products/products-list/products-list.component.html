@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 mx-auto">
+            <div class="row">
+            <table class="table table-hover table-bordered">
+       <thead class="thead-light">
+         
+       <tr>
+         <th scope ="col">S.NO</th>
+         <th scope ="col" *ngFor ="let column of headers" class="text-center">
+           {{ column | uppercase }}
+         </th>
+         <!-- <th scope="col">IMAGE</th> -->
+         <th colspan="2">ACTIONS</th>
+       </tr>
+      </thead>
+      <tbody>
+       <tr scope ="row" *ngFor = "let product of products ; index as i;  ">
+         <ng-container *ngIf = 'product.display == "Yes" && product.status != "Unavailable" '>
+         <td>{{i +1}}</td>
+         <td *ngFor = "let column of headers">
+            <ng-container *ngIf = 'column == "image"; else regulardata'>
+              <img [src]= 'product.image' style="width: 40px; height:auto;"/>
+            </ng-container>
+            <ng-template #regulardata>{{ product[column] }}</ng-template> 
+          </td>
+         <td class="text-center text-primary"><a [routerLink]="['/product-edit', product.id]" class="fa fa-pencil"></a></td>
+         <td class="text-center text-danger"><a (click)="deleteProduct(product)" class="fa fa-trash"></a></td>
+        </ng-container>
+       </tr>
+      </tbody>
+     </table>
+        </div>
+    </div>
+  </div>

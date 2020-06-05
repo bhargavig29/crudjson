@@ -1,0 +1,70 @@
+  <div class="row">
+    <div class="col-md-8 mt-3 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          Edit Product
+        </div>
+        <div class="card-body">
+          <form *ngIf = "productsForm" [formGroup]="productsForm" (ngSubmit)="onSubmit()">
+            <div class="form-group ">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" formControlName="name" />
+            </div>
+            <div *ngIf="f.name.touched && f.name.invalid" class="text-dang">
+              <div *ngIf="f.name.errors.required">Name is required.</div>
+              <div *ngIf="f.name.errors.minlength">Name should have atleast 3 characters.</div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea class="form-control" id="description" formControlName="description" rows="6"></textarea>
+            </div>
+            <div *ngIf="f.description.touched && f.description.invalid" class="text-danger">
+              <div *ngIf="f.description.errors.required">Description is required.</div>
+            </div>
+            <div class="form-group">
+              <label for="price">Price</label>
+              <input type="number" class="form-control" id="price" formControlName="price" pattern="[1-9]+[0-9]*$">
+            </div>
+            <div *ngIf="f.price.touched && f.price.invalid" class="text-danger">
+              <div *ngIf="f.price.errors.required">Price is required.</div>
+              <div *ngIf="f.price.errors.pattern">Enter Valid Price.</div>
+            </div>
+            <div class="form-group">
+              <img [src]="imageSrc" id="preview" style="width: 100px; height:100px">
+            </div>
+            <div class="form-group">
+              <label for="image">File</label><br>
+              <input formControlName="image" id="image" type="file" 
+                (change)="onFileChange($event)">
+            </div>
+              <label>Display in List</label>
+              <div class="form-group" >
+                <label for="display" class = "mr-3" *ngFor ="let list of display">
+                  <input
+                    type="radio"
+                    formControlName="display"
+                    [value]="list" checked>
+                    {{ list}}
+                  </label>
+              </div>
+              <div class="form-group">
+                <label for="status">Product Status</label>
+                <select id="status" class="form-control"
+                formControlName="status">
+                  <option *ngFor = "let Status of status"
+                   [value]="Status">{{ Status }}</option>
+                </select>
+              </div>
+              <div formArrayName = "images">
+                <div *ngFor = "let imageurl of controls; let i = index" [formGroupName]= "i">
+                  <input type="text" formControlName ="url" class="form-control mb-2">
+                </div>
+              </div>
+              <button type="button" class="btn btn-secondary mr-2" (click)="onAddImages()">AddImages</button>
+              <button type="submit" class="btn btn-success mr-2" [disabled]="!productsForm.valid">Update</button>
+              <button class="btn btn-primary" type="" (click)=" onCancel()">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

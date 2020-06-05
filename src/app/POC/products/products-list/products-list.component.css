@@ -1,0 +1,6 @@
+a {
+    text-decoration: none;
+}
+.text-primary:hover{
+    color: blue;
+}
