@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "CRUD-JSON"
+    }
+  },
+  "defaultProject": "CRUD-JSON",
+  "cli": {
+    "analytics": false
+  }
 }

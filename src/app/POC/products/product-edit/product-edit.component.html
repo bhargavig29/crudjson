@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
               <label for="price">Price</label>
-              <input type="number" class="form-control" id="price" formControlName="price" pattern="[1-9]+[0-9]*$">
+              <input numeric decimals="4" type="number" class="form-control" id="price" formControlName="price" pattern="[1-9]+[0-9]*$">
             </div>
             <div *ngIf="f.price.touched && f.price.invalid" class="text-danger">
               <div *ngIf="f.price.errors.required">Price is required.</div>
@@ -43,7 +43,7 @@
                   <input
                     type="radio"
                     formControlName="display"
-                    [value]="list" checked>
+                    [value]="list">
                     {{ list}}
                   </label>
               </div>
@@ -55,9 +55,25 @@
                    [value]="Status">{{ Status }}</option>
                 </select>
               </div>
-              <div formArrayName = "images">
-                <div *ngFor = "let imageurl of controls; let i = index" [formGroupName]= "i">
-                  <input type="text" formControlName ="url" class="form-control mb-2">
+              <div *ngFor="let color of Colors; let i = index;">
+                <label>
+                  <input type="checkbox" [value] = "color.id" [checked]="color.isChecked" 
+                  (change)="onCheckboxChange($event)"/>
+                  {{color.name}}
+                </label>
+              </div>
+              
+              <div formArrayName ="images">
+                <label for="images">Images</label>
+                <div class="row mb-2" *ngFor = "let imageurl of controls; let i = index" [formGroupName]="i"> 
+                  <div class="col-md-11">
+                  <input type="text" formControlName ="url" class="form-control mb-2"></div>
+                  <div class="col-md-1">
+                    <button 
+                    type="button" 
+                    class="btn btn-danger"
+                    (click)="onDeleteImage(i)">X</button>
+                </div>
                 </div>
               </div>
               <button type="button" class="btn btn-secondary mr-2" (click)="onAddImages()">AddImages</button>

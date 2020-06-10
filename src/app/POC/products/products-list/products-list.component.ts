@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../products.service';
 import { CommonService } from '../common.service';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+ 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
@@ -9,15 +10,23 @@ import { CommonService } from '../common.service';
 })
 export class ProductsListComponent implements OnInit {
 
+
+  queryString: string;
+
   headers = ["name","description","price","image","status"];
 
   products ;
+  searchableList: any;
 
   constructor(private prodService : ProductService,
-    private commonprodService: CommonService) { }
+    private commonprodService: CommonService,
+    private modalService: NgbModal) {
+      this.searchableList = this.products;
+     }
 
   ngOnInit() {
     this.getProducts();
+  
   
   }
 
@@ -36,4 +45,10 @@ export class ProductsListComponent implements OnInit {
     })
 
   }
+  openModal(targetModal, product) {
+    this.modalService.open(targetModal, {
+     centered: true,
+     backdrop: 'static'
+    });
+}
 }
