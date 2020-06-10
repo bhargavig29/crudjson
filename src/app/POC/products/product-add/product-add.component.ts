@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductService } from '../products.service';
 import { v4 as uuid } from 'uuid';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
@@ -23,10 +22,21 @@ export class ProductAddComponent implements OnInit {
 
   productsForm: FormGroup;
 
+  Colors: Array<any> = [
+    { id:0 , name: 'White', value: 'white',isChecked:false},
+    { id:1, name: 'Black', value: 'black' ,isChecked:false},
+    { id:2 , name: 'Grey', value: 'grey',isChecked:false }
+  ];
+
+  // Colors: Array<any> = [
+  //   {name:'Black'},
+  //   {name:'White'},
+  //   {name:'Grey'},
+  // ];
+
   images: FormArray;
 
-  constructor(private prodService: ProductService,
-    private commonprodService : CommonService,
+  constructor( private commonprodService : CommonService,
     private router: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder) {
@@ -39,9 +49,39 @@ export class ProductAddComponent implements OnInit {
       'fileSource': ['', [Validators.required]],
       'display': ['Yes',[Validators.required]],
       'status': ['Available',[Validators.required]],
+      'checkArray': this.fb.array([]),
       'images': this.fb.array([])
     })
+
   }
+
+
+  onCheckboxChange(e) {
+    const checkArray: FormArray = this.productsForm.get('checkArray') as FormArray;
+  
+    if (e.target.checked) {
+      checkArray.push(new FormControl(parseInt(e.target.value)));
+    } else {
+      //let i: number = 0;
+      checkArray.controls.forEach((item: FormControl, index) => {
+        if (item.value == parseInt(e.target.value)) {
+          checkArray.removeAt(index)
+          return;
+        }
+        //i++;
+      });
+    }
+  }
+  // onCheckboxChange(name:string, isChecked: boolean) {
+  //   const checkArray = <FormArray>this.productsForm.controls.checkArray;
+  
+  //   if(isChecked) {
+  //     checkArray.push(new FormControl(name));
+  //   } else {
+  //     let index = checkArray.controls.findIndex(x => x.value == name)
+  //     checkArray.removeAt(index);
+  //   }
+  // }
 
   onAddImages(){
     this.images = this.productsForm.get('images') as FormArray;
@@ -51,6 +91,9 @@ export class ProductAddComponent implements OnInit {
         'url':''
       })
     );
+  }
+  onDeleteImage(index: number){
+    (<FormArray>this.productsForm.get('images')).removeAt(index);
   }
 
   get f() {
@@ -108,7 +151,9 @@ export class ProductAddComponent implements OnInit {
         image: this.productsForm.value.fileSource,
         display: this.productsForm.value.display,
         status: this.productsForm.value.status,
+        checkArray: this.productsForm.value.checkArray,
         images: this.productsForm.value.images
+        
       }
 
       console.log(newProducts);

@@ -1,35 +1,56 @@
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 mt-3 mx-auto">
-            <div class="row">
-            <table class="table table-hover table-bordered">
-       <thead class="thead-light">
+  <div class="row">
+    <div class="col-md-8 mt-3 mx-auto">
+      <div class="row">
+          <div class="col-12">
+            <input type="text" [(ngModel)]="queryString" id="search" placeholder="Search to type" class="mb-2">
+          </div>
+        <table class="table table-hover table-bordered">
          
-       <tr>
-         <th scope ="col">S.NO</th>
-         <th scope ="col" *ngFor ="let column of headers" class="text-center">
-           {{ column | uppercase }}
-         </th>
-         <!-- <th scope="col">IMAGE</th> -->
-         <th colspan="2">ACTIONS</th>
-       </tr>
-      </thead>
-      <tbody>
-       <tr scope ="row" *ngFor = "let product of products ; index as i;  ">
-         <ng-container *ngIf = 'product.display == "Yes" && product.status != "Unavailable" '>
-         <td>{{i +1}}</td>
-         <td *ngFor = "let column of headers">
-            <ng-container *ngIf = 'column == "image"; else regulardata'>
-              <img [src]= 'product.image' style="width: 40px; height:auto;"/>
-            </ng-container>
-            <ng-template #regulardata>{{ product[column] }}</ng-template> 
-          </td>
-         <td class="text-center text-primary"><a [routerLink]="['/product-edit', product.id]" class="fa fa-pencil"></a></td>
-         <td class="text-center text-danger"><a (click)="deleteProduct(product)" class="fa fa-trash"></a></td>
-        </ng-container>
-       </tr>
-      </tbody>
-     </table>
-        </div>
+          <thead class="thead-light">
+              <tr>
+              <th scope="col">S.NO</th>
+              <th scope="col" *ngFor="let column of headers" class="text-center">
+                {{ column | uppercase }}
+              </th>
+              <th colspan="2">ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr scope="row" *ngFor="let product of products | SearchPipe : queryString : searchableList; index as i ;  ">
+              <ng-container *ngIf='product.display == "Yes" && product.status != "Unavailable" '>
+                <td>{{i +1}}</td>
+                <td *ngFor="let column of headers">
+                  <ng-container *ngIf='column == "image"; else regulardata'>
+                    <a (click) = "openModal(imagesModal, product)"><img [src]='product.image'
+                        style="width: 40px; height:auto;" /></a>
+                  </ng-container>
+                  <ng-template #imagesModal let-modal>
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="imagesLabel">Product Images</h5>
+                      <button type="button" class="close" (click)="modal.dismiss()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body d-flex">
+                      <div *ngFor = "let imageurls of product.images">
+                        <img [src] = "imageurls.url" style="width: 50px; height:auto;">
+                      </div>
+                    </div>
+                      <div class="modal-footer">  
+                        <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Close</button>
+                      </div>
+                    
+                  </ng-template>
+                  <ng-template #regulardata>{{ product[column] }}</ng-template>
+                </td>
+                <td class="text-center text-primary"><a [routerLink]="['/product-edit', product.id]"
+                    class="fa fa-pencil"></a></td>
+                <td class="text-center text-danger"><a (click)="deleteProduct(product)" class="fa fa-trash"></a></td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
