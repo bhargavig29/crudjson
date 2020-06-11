@@ -17,7 +17,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr scope="row" *ngFor="let product of products | SearchPipe : SearchText : 'name'; index as i; ">
+            <tr scope="row" *ngFor="let product of products | SearchPipe : 'name,description,price,status' : SearchText; index as i; ">
               <ng-container *ngIf='product.display == "Yes" && product.status != "Unavailable" '>
                 <td>{{i +1}}</td>
                 <td *ngFor="let column of headers">
