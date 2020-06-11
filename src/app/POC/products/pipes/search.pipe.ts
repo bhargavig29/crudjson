@@ -4,22 +4,25 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'SearchPipe'
 })
 export class SearchPipe implements PipeTransform {
-  transform(value: any, input: string, searchableList: any) {
-    if (input) {
-        input = input.toLowerCase();
-        return value.filter(function (el: any) {
-            var isTrue = false;
-            for (var k in searchableList) {
-                if (el[searchableList[k]].toLowerCase().indexOf(input) > -1) {
-                    isTrue = true;
-                }
-                if (isTrue) {
-                    return el
-                }
-            }
-        })
-    }
-    return value;
-}
+  
+transform(items: any[], searchText: string, fieldName: string): any[] {
+
+    // return empty array if array is falsy
+    if (!items) { return []; }
+
+    // return the original array if search text is empty
+    if (!searchText) { return items; }
+
+    // convert the searchText to lower case
+    searchText = searchText.toLowerCase();
+
+    // retrun the filtered array
+    return items.filter(item => {
+      if (item && item[fieldName]) {
+        return item[fieldName].toLowerCase().includes(searchText);
+      }
+      return false;
+    });
+   }
 
 }

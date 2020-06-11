@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class ProductsListComponent implements OnInit {
 
 
-  queryString: string;
+  SearchText: string;
 
   headers = ["name","description","price","image","status"];
 

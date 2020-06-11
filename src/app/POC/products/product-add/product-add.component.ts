@@ -72,17 +72,6 @@ export class ProductAddComponent implements OnInit {
       });
     }
   }
-  // onCheckboxChange(name:string, isChecked: boolean) {
-  //   const checkArray = <FormArray>this.productsForm.controls.checkArray;
-  
-  //   if(isChecked) {
-  //     checkArray.push(new FormControl(name));
-  //   } else {
-  //     let index = checkArray.controls.findIndex(x => x.value == name)
-  //     checkArray.removeAt(index);
-  //   }
-  // }
-
   onAddImages(){
     this.images = this.productsForm.get('images') as FormArray;
    
