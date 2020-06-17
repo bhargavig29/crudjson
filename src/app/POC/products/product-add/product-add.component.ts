@@ -28,12 +28,6 @@ export class ProductAddComponent implements OnInit {
     { id:2 , name: 'Grey', value: 'grey',isChecked:false }
   ];
 
-  // Colors: Array<any> = [
-  //   {name:'Black'},
-  //   {name:'White'},
-  //   {name:'Grey'},
-  // ];
-
   images: FormArray;
 
   constructor( private commonprodService : CommonService,
@@ -50,6 +44,7 @@ export class ProductAddComponent implements OnInit {
       'display': ['Yes',[Validators.required]],
       'status': ['Available',[Validators.required]],
       'checkArray': this.fb.array([]),
+      'date': [new Date(),Validators.required],
       'images': this.fb.array([])
     })
 
@@ -141,6 +136,7 @@ export class ProductAddComponent implements OnInit {
         display: this.productsForm.value.display,
         status: this.productsForm.value.status,
         checkArray: this.productsForm.value.checkArray,
+        date:this.productsForm.value.date,
         images: this.productsForm.value.images
         
       }
@@ -151,7 +147,7 @@ export class ProductAddComponent implements OnInit {
       this.commonprodService.addProduct(newProducts).subscribe((response)=>{
         this.getproducts();
         console.log("Product Added Successfully")
-        this.router.navigate(['products']);
+        this.router.navigate(['products-list']);
       })
       
     }

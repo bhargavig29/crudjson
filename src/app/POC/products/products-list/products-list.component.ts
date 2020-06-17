@@ -13,7 +13,7 @@ export class ProductsListComponent implements OnInit {
 
   SearchText: string;
 
-  headers = ["name","description","price","image","status"];
+  headers = ["name","description","price","image","status","date"];
 
   products ;
   searchableList: any;

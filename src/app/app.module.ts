@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsModule } from './POC/products/products.module'
 import { CommonService } from './POC/products/common.service';
+import { AuthModule } from './POC/auth/auth.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { CommonService } from './POC/products/common.service';
     BrowserModule,
     AppRoutingModule,
     ProductsModule,
+    AuthModule,
     NgbModule
     
     ],

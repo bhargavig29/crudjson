@@ -38,7 +38,7 @@
                 (change)="onFileChange($event)">
             </div>
               <label>Display in List</label>
-              <div class="form-group" >
+              <div class="form-group" >                                                                                                                                                                                                               
                 <label for="display" class = "mr-3" *ngFor ="let list of display">
                   <input
                     type="radio"
@@ -62,7 +62,10 @@
                   {{color.name}}
                 </label>
               </div>
-              
+              <div>
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date" formControlName = "date" class="form-control">
+              </div>
               <div formArrayName ="images">
                 <label for="images">Images</label>
                 <div class="row mb-2" *ngFor = "let imageurl of controls; let i = index" [formGroupName]="i"> 

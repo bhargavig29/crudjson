@@ -4,6 +4,11 @@ import { ProductsModule } from './POC/products/products.module';
 
 
 const routes: Routes = [
+  
+  // {
+  //   path: '',
+  //   loadChildren: './POC/auth/auth.module#AuthModule'
+  // },
   {
     path: '',
     loadChildren: './POC/products/products.module#ProductsModule'

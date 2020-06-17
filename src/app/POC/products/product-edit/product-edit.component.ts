@@ -52,6 +52,7 @@ export class ProductEditComponent implements OnInit {
     let prodDisplay = '';
     let prodStatus = '';
     let prodcheck = [];
+    let prodDate= '';
     let prodImages = new FormArray([]);
 
     this.products = this.commonprodService.getProductById(this.id).subscribe((data) => {
@@ -82,6 +83,8 @@ export class ProductEditComponent implements OnInit {
         }
       }
       console.log(this.Colors);  
+      prodDate = this.prod.date;
+
       if (this.prod['images']) {
         for (let imageUrls of this.prod.images) {
           prodImages.push(
@@ -101,6 +104,7 @@ export class ProductEditComponent implements OnInit {
         'display': [prodDisplay, [Validators.required]],
         'status': [prodStatus, [Validators.required]],
         'checkArray': this.fb.array(prodcheck),
+        'date': [prodDate],
         'images': prodImages
       });
       // console.log(this.productsForm.value.checkArray)
@@ -193,7 +197,7 @@ export class ProductEditComponent implements OnInit {
       this.commonprodService.updateProduct(updatedProduct).subscribe(() => {
         this.getProducts();
         console.log("Product Updated Successfully")
-        this.router.navigate(['products']);
+        this.router.navigate(['products-list']);
       });
 
     }

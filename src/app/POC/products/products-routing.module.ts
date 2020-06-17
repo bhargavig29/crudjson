@@ -13,11 +13,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'products',
+        redirectTo: 'products-list',
         pathMatch: 'full'
       },
       {
-        path: 'products',
+        path: 'products-list',
         component: ProductsListComponent
       },
       {

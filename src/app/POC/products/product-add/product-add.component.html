@@ -64,6 +64,10 @@
                   {{color.name}}
                 </label>
               </div>
+              <div>
+                <label for="date">Date</label>
+                <input type="date" name="date" id="date" formControlName = "date" class="form-control">
+              </div>
               <div formArrayName ="images">
                 <label for="images">Images</label>
                 <div class="row mb-2" *ngFor = "let imageurl of controls; let i = index" [formGroupName]="i"> 
@@ -80,6 +84,7 @@
               <button type="button" class="btn btn-secondary mr-2" (click)="onAddImages()">Add Images</button>
               <button type="submit" class="btn btn-success mr-2" [disabled]="!productsForm.valid">Save</button>
               <button class="btn btn-primary mr-2" type="button" (click)="onCancel()">Cancel</button>
+              <button class="btn btn-secondary mr-2" type="button" (click)="productsForm.reset()">Cancel</button>
             </form>
           </div>
         </div>
