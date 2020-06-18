@@ -103,7 +103,7 @@ export class ProductEditComponent implements OnInit {
         'fileSource': [''],
         'display': [prodDisplay, [Validators.required]],
         'status': [prodStatus, [Validators.required]],
-        'checkArray': this.fb.array(prodcheck),
+        'checkArray': this.fb.array(prodcheck,[Validators.required]),
         'date': [prodDate],
         'images': prodImages
       });

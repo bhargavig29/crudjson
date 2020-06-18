@@ -43,7 +43,7 @@ export class ProductAddComponent implements OnInit {
       'fileSource': ['', [Validators.required]],
       'display': ['Yes',[Validators.required]],
       'status': ['Available',[Validators.required]],
-      'checkArray': this.fb.array([]),
+      'checkArray': this.fb.array([],Validators.required),
       'date': [new Date(),Validators.required],
       'images': this.fb.array([])
     })

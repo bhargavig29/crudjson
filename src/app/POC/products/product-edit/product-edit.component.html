@@ -62,6 +62,9 @@
                   {{color.name}}
                 </label>
               </div>
+              <div class="text-danger" *ngIf="this.productsForm.controls['checkArray'].errors?.required">
+                Checkbox is required, select atleast one value.
+              </div>
               <div>
                 <label for="date">Date</label>
                 <input type="date" name="date" id="date" formControlName = "date" class="form-control">

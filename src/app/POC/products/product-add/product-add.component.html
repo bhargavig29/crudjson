@@ -64,6 +64,9 @@
                   {{color.name}}
                 </label>
               </div>
+              <div class="text-danger" *ngIf="this.productsForm.controls['checkArray'].errors?.required">
+                Checkbox is required, select atleast one value.
+              </div>
               <div>
                 <label for="date">Date</label>
                 <input type="date" name="date" id="date" formControlName = "date" class="form-control">
@@ -84,7 +87,7 @@
               <button type="button" class="btn btn-secondary mr-2" (click)="onAddImages()">Add Images</button>
               <button type="submit" class="btn btn-success mr-2" [disabled]="!productsForm.valid">Save</button>
               <button class="btn btn-primary mr-2" type="button" (click)="onCancel()">Cancel</button>
-              <button class="btn btn-secondary mr-2" type="button" (click)="productsForm.reset()">Cancel</button>
+              <button class="btn btn-secondary mr-2" type="button" (click)="productsForm.reset()">Reset</button>
             </form>
           </div>
         </div>
